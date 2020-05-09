@@ -3,7 +3,7 @@ const { findChild } = require("./findChild");
 const { findChildren } = require("./findChildren");
 const { findOne } = require("./findOne");
 
-exports = {
+module.exports = {
   findAll,
   findChild,
   findChildren,
