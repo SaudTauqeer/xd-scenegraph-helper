@@ -47,11 +47,13 @@ function findAll(targetNode, callback) {
     return { containerNodes, nonContainerNodes };
   }
 
-  function getChildrenRecursively(targetNode) {
+  function flatContainerNode(targetNode) {
+    const parent = targetNode;
     const {
       containerNodes,
       nonContainerNodes,
     } = sortContainerAndNonContainerNodes(targetNode);
+
     console.log(
       containerNodes,
       "<=====================>",
@@ -61,7 +63,8 @@ function findAll(targetNode, callback) {
     const parent = [targetNode.children.at(0)];
   }
 
-  getChildrenRecursively(targetNode);
+  function traverseScenegraph() {}
+  flatContainerNode(targetNode);
 }
 
 exports.findAll = findAll;
