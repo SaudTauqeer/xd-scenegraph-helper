@@ -2,8 +2,8 @@
  *
  * Searches the immediate children of the targetNode (i.e. not including the children's children). Returns all nodes for which callback returns true.
  * @param {Scenenode.isContainer} targetNode target scenenode which contains .children property.
- * @param {Function} callback a function that evaluates whether to return the provided node. If this argument is omitted, findChildren returns node.children.
- * @returns empty or populated array depending on callback test.
+ * @param {Function} callback  function that evaluates whether to return the provided node. If this argument is omitted, findChildren returns node.children.
+ * @returns this function returns empty or populated array depending on if matching nodes were found or not.
  */
 function findChildren(targetNode, callback) {
   //handle exceptions.
