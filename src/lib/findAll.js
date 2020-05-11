@@ -16,29 +16,21 @@ function findAll(targetNode, callback) {
   }
 
   const result = flatContainerNode(targetNode);
-
+  console.log(result, "final");
   //flat container node and return result.
   function flatContainerNode(targetNode, results = [], nestedContainers = []) {
     const isTargetNodeArtboard = targetNode instanceof scenegraph.Artboard;
 
-    const targetNodeCbBoolean = isCallbackExists ? callback(targetNode) : true;
+    const cbBool = isCallbackExists ? callback(targetNode) : true;
     //if the target node passes the callback test.
-    if (
-      targetNodeCbBoolean &&
-      !isTargetNodeArtboard &&
-      !results.includes(targetNode)
-    ) {
+    if (cbBool && !isTargetNodeArtboard && !results.includes(targetNode)) {
       results.push(targetNode);
     }
 
-    if (
-      !targetNode.isContainer &&
-      !results.includes(targetNode) &&
-      targetNodeCbBoolean
-    ) {
+    if (!targetNode.isContainer && !results.includes(targetNode)) {
       results.push(targetNode);
     }
-    //end of iteration.
+    //end of iteration?
     if (targetNode === typeof undefined) {
       return results;
     }
@@ -47,12 +39,12 @@ function findAll(targetNode, callback) {
       const children = targetNode.children;
       if (children.length) {
         children.forEach((child) => {
-          const childCbBoolean = isCallbackExists ? callback(child) : true;
+          const childBool = isCallbackExists ? callback(child) : true;
 
           //push nested containers so we can keep the sequence right.
           if (child.isContainer) {
             //check if node should be included in result array.
-            if (childCbBoolean && !results.includes(child)) {
+            if (childBool && !results.includes(child)) {
               results.push(child);
             }
             nestedContainers.push(child);
@@ -60,11 +52,7 @@ function findAll(targetNode, callback) {
             const nextTargetNode = nestedContainers.shift();
             flatContainerNode(nextTargetNode, results, nestedContainers);
           }
-          if (
-            !child.isContainer &&
-            childCbBoolean &&
-            !results.includes(child)
-          ) {
+          if (!child.isContainer && cbBool && !results.includes(child)) {
             results.push(child);
           }
         });
@@ -81,4 +69,5 @@ function findAll(targetNode, callback) {
     return results;
   }
 }
+
 exports.findAll = findAll;
