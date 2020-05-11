@@ -62,9 +62,8 @@ function findAll(targetNode, callback) {
     if (!targetNode.isContainer) {
       results.push(targetNode);
     }
-    const _ = require("lodash");
 
-    const r = _.uniq(results).map((e) => e.name);
+    const r = results.map((e) => e.name);
     console.log("****************", r, "***************");
     return results;
   }
