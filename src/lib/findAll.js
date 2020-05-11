@@ -16,16 +16,16 @@ function findAll(targetNode, callback) {
   }
 
   /**
-     * Sorts a parent node into container and non-container nodes, also returns nodes according to XD index which is bottom-most node first.
-     * @param {scenenode.isContainer} targetNode parent node that is going to be sorted.
-     * @returns {Object} this function returns object:
-     * {
-          containerNodes: [],
-          nonContainerNodes: [],
-          childrenAccordingToXdIndex: []
-        }
-     *
-     */
+   * Sorts a parent node into container and non-container nodes, also returns nodes according to XD index which is bottom-most node first.
+   * @param {scenenode.isContainer} targetNode parent node that is going to be sorted.
+   * @returns {Object} this function returns object:
+   * {
+        containerNodes: [],
+        nonContainerNodes: [],
+        childrenAccordingToXdIndex: []
+      }
+   *
+   */
   function sortContainerAndNonContainerNodes(targetNode) {
     const children = targetNode.children;
     //now we can use reduce on these children.
@@ -61,6 +61,7 @@ function findAll(targetNode, callback) {
   }
 
   //init the process and send to flatContainerNode
+
   function startSorting(targetNode) {
     let resultArr = [];
     //get sorted out data.
@@ -77,18 +78,62 @@ function findAll(targetNode, callback) {
       if (containerNodes.includes(node) && bool) {
         // flat node recursively
         const flatData = flatContainerNode(node);
-        console.log(flatData, "flat yo");
       }
       //non container
       if (nonContainerNodes.includes(node) && bool) {
         resultArr.push(node);
       }
     });
-    console.log(resultArr, "result arr");
   }
   startSorting(targetNode);
 
   //flat container node and return result.
-  function flatContainerNode(targetNode) {}
+  function flatContainerNode(targetNode, results = [], nestedContainers = []) {
+    const bool = isCallbackExists ? callback(targetNode) : true;
+    //if the target node passes the callback test.
+    if (bool && !results.includes(targetNode)) {
+      results.push(targetNode);
+    }
+
+    //end of iteration?
+    if (targetNode === typeof undefined) {
+      return results;
+    }
+    //check for .children.
+    if (targetNode.isContainer) {
+      const children = targetNode.children;
+      if (children.length) {
+        children.forEach((child) => {
+          const childBool = isCallbackExists ? callback(child) : true;
+
+          //push nested containers so we can keep the sequence right.
+          if (child.isContainer) {
+            //check if node should be included in result array.
+            if (childBool && !results.includes(child)) results.push(child);
+            nestedContainers.push(child);
+          }
+          if (!child.isContainer && bool) {
+            console.log(child);
+            results.push(child);
+          }
+        });
+      }
+
+      //flat nested container nodes.
+      if (nestedContainers.length) {
+        //remove node that has been already passed.
+        const nextTargetNode = nestedContainers.shift();
+
+        flatContainerNode(nextTargetNode, results, nestedContainers);
+      }
+    }
+    if (!targetNode.isContainer) {
+      results.push(targetNode);
+    }
+
+    const r = results.map((e) => e.name);
+    console.log("****************", r, "***************");
+    return results;
+  }
 }
 exports.findAll = findAll;
