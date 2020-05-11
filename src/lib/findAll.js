@@ -92,5 +92,4 @@ function findAll(targetNode, callback) {
     return results;
   }
 }
-
 exports.findAll = findAll;
