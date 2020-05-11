@@ -1,4 +1,6 @@
 function findAll(targetNode, callback) {
+  //wether to test nodes on all levels against the callback or not.
+  const isCallbackExists = typeof arguments[1] === "function" ? true : false;
   //handle exceptions.
   if (
     typeof arguments[1] !== "function" &&
@@ -14,15 +16,16 @@ function findAll(targetNode, callback) {
   }
 
   /**
-   * Sorts a parent node into container and non-container nodes.
-   * @param {scenenode.isContainer} targetNode parent node that is going to be sorted.
-   * @returns {Object} this function returns object:
-   * {
-        containerNodes: [],
-        nonContainerNodes: [],
-      }
-   *
-   */
+     * Sorts a parent node into container and non-container nodes, also returns nodes according to XD index which is bottom-most node first.
+     * @param {scenenode.isContainer} targetNode parent node that is going to be sorted.
+     * @returns {Object} this function returns object:
+     * {
+          containerNodes: [],
+          nonContainerNodes: [],
+          childrenAccordingToXdIndex: []
+        }
+     *
+     */
   function sortContainerAndNonContainerNodes(targetNode) {
     const children = targetNode.children;
     //now we can use reduce on these children.
@@ -30,10 +33,14 @@ function findAll(targetNode, callback) {
     //seperate container and non-container nodes.
     const reducedObject = iterableChildrenArray.reduce(
       (acc, currentNode, index) => {
-        if (currentNode.isContainer) {
+        //set bool var to true if no callback exists otherwise use callbacks bool value.
+        const bool = isCallbackExists === true ? callback(currentNode) : true;
+
+        acc.childrenAccordingToXdIndex.push(currentNode);
+        if (currentNode.isContainer && bool) {
           acc.containerNodes.push(currentNode);
         }
-        if (!currentNode.isContainer) {
+        if (!currentNode.isContainer && bool) {
           acc.nonContainerNodes.push(currentNode);
         }
         return acc;
@@ -41,30 +48,47 @@ function findAll(targetNode, callback) {
       {
         containerNodes: [],
         nonContainerNodes: [],
+        childrenAccordingToXdIndex: [],
       }
     );
-    const { containerNodes, nonContainerNodes } = reducedObject;
-    return { containerNodes, nonContainerNodes };
-  }
-
-  function flatContainerNode(targetNode) {
-    const parent = targetNode;
     const {
       containerNodes,
       nonContainerNodes,
-    } = sortContainerAndNonContainerNodes(targetNode);
+      childrenAccordingToXdIndex,
+    } = reducedObject;
 
-    console.log(
-      containerNodes,
-      "<=====================>",
-      nonContainerNodes,
-      "last test"
-    );
-    const parent = [targetNode.children.at(0)];
+    return { containerNodes, nonContainerNodes, childrenAccordingToXdIndex };
   }
 
-  function traverseScenegraph() {}
-  flatContainerNode(targetNode);
-}
+  //init the process and send to flatContainerNode
+  function startSorting(targetNode) {
+    let resultArr = [];
+    //get sorted out data.
 
+    const {
+      containerNodes,
+      nonContainerNodes,
+      childrenAccordingToXdIndex,
+    } = sortContainerAndNonContainerNodes(targetNode);
+
+    const d = childrenAccordingToXdIndex.map((node) => {
+      const bool = isCallbackExists === true ? callback(currentNode) : true;
+      //container
+      if (containerNodes.includes(node) && bool) {
+        // flat node recursively
+        const flatData = flatContainerNode(node);
+        console.log(flatData, "flat yo");
+      }
+      //non container
+      if (nonContainerNodes.includes(node) && bool) {
+        resultArr.push(node);
+      }
+    });
+    console.log(resultArr, "result arr");
+  }
+  startSorting(targetNode);
+
+  //flat container node and return result.
+  function flatContainerNode(targetNode) {}
+}
 exports.findAll = findAll;
