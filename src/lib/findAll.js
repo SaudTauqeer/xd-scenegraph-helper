@@ -16,22 +16,29 @@ function findAll(targetNode, callback) {
   }
 
   const result = flatContainerNode(targetNode);
-  console.log(result, "top result");
 
   //flat container node and return result.
   function flatContainerNode(targetNode, results = [], nestedContainers = []) {
     const isTargetNodeArtboard = targetNode instanceof scenegraph.Artboard;
 
-    const cbBool = isCallbackExists ? callback(targetNode) : true;
+    const targetNodeCbBoolean = isCallbackExists ? callback(targetNode) : true;
     //if the target node passes the callback test.
-    if (cbBool && !isTargetNodeArtboard && !results.includes(targetNode)) {
+    if (
+      targetNodeCbBoolean &&
+      !isTargetNodeArtboard &&
+      !results.includes(targetNode)
+    ) {
       results.push(targetNode);
     }
 
-    if (!targetNode.isContainer && !results.includes(targetNode)) {
+    if (
+      !targetNode.isContainer &&
+      !results.includes(targetNode) &&
+      targetNodeCbBoolean
+    ) {
       results.push(targetNode);
     }
-    //end of iteration?
+    //end of iteration.
     if (targetNode === typeof undefined) {
       return results;
     }
@@ -40,23 +47,24 @@ function findAll(targetNode, callback) {
       const children = targetNode.children;
       if (children.length) {
         children.forEach((child) => {
-          const childBool = isCallbackExists ? callback(child) : true;
+          const childCbBoolean = isCallbackExists ? callback(child) : true;
 
           //push nested containers so we can keep the sequence right.
           if (child.isContainer) {
             //check if node should be included in result array.
-            if (
-              childBool &&
-              !results.includes(child) &&
-              !results.includes(child)
-            )
+            if (childCbBoolean && !results.includes(child)) {
               results.push(child);
+            }
             nestedContainers.push(child);
             //remove node that has been already passed.
             const nextTargetNode = nestedContainers.shift();
             flatContainerNode(nextTargetNode, results, nestedContainers);
           }
-          if (!child.isContainer && cbBool && !results.includes(child)) {
+          if (
+            !child.isContainer &&
+            childCbBoolean &&
+            !results.includes(child)
+          ) {
             results.push(child);
           }
         });
@@ -70,8 +78,6 @@ function findAll(targetNode, callback) {
       }
     }
 
-    const r = results.map((e) => e.name);
-    console.log("****************", r, "***************");
     return results;
   }
 }
