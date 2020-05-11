@@ -24,10 +24,13 @@ function findAll(targetNode, callback) {
 
     const cbBool = isCallbackExists ? callback(targetNode) : true;
     //if the target node passes the callback test.
-    if (cbBool && !isTargetNodeArtboard) {
+    if (cbBool && !isTargetNodeArtboard && !results.includes(targetNode)) {
       results.push(targetNode);
     }
 
+    if (!targetNode.isContainer && !results.includes(targetNode)) {
+      results.push(targetNode);
+    }
     //end of iteration?
     if (targetNode === typeof undefined) {
       return results;
@@ -42,10 +45,18 @@ function findAll(targetNode, callback) {
           //push nested containers so we can keep the sequence right.
           if (child.isContainer) {
             //check if node should be included in result array.
-            if (childBool && !results.includes(child)) results.push(child);
+            if (
+              childBool &&
+              !results.includes(child) &&
+              !results.includes(child)
+            )
+              results.push(child);
             nestedContainers.push(child);
+            //remove node that has been already passed.
+            const nextTargetNode = nestedContainers.shift();
+            flatContainerNode(nextTargetNode, results, nestedContainers);
           }
-          if (!child.isContainer && cbBool) {
+          if (!child.isContainer && cbBool && !results.includes(child)) {
             results.push(child);
           }
         });
@@ -55,12 +66,8 @@ function findAll(targetNode, callback) {
       if (nestedContainers.length) {
         //remove node that has been already passed.
         const nextTargetNode = nestedContainers.shift();
-
         flatContainerNode(nextTargetNode, results, nestedContainers);
       }
-    }
-    if (!targetNode.isContainer) {
-      results.push(targetNode);
     }
 
     const r = results.map((e) => e.name);
