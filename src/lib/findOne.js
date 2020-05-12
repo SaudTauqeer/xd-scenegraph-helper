@@ -29,6 +29,8 @@ function findOne(targetNode, callback) {
 }
 
 function findAll(targetNode, callback) {
+  const isCallbackExists = arguments[1] === typeof "function" ? true : false;
+
   const result = flatContainerNode(targetNode);
   return result;
   //flat container node and return result.
