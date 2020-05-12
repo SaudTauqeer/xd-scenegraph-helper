@@ -19,14 +19,12 @@ function findChild(targetNode, callback) {
   }
 
   //filter target node based on callback boolean value.
-  const resultNodes = targetNode.children.filter((node) => {
-    const boolean = callback(node);
-    return boolean;
+  const findableArr = targetNode.children.map((node) => {
+    return node;
   });
-  //return null or the first value.
-  if (!resultNodes.length) {
-    return null;
-  }
-  return resultNodes[0];
+  //find first occuring instance.
+  const child = findableArr.find((n) => callback(n));
+  if (child) return child;
+  if (!child) return null;
 }
 exports.findChild = findChild;

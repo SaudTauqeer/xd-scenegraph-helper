@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "xd-scenegraph-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "set of utility functions to help traverse the XD scenegraph.",
   "main": "src/lib/index.js",
   "scripts": {
