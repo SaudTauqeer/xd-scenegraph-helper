@@ -1,8 +1,8 @@
 {
   "private": false,
   "name": "xd-scenegraph-helper",
-  "version": "0.0.6",
-  "description": "set of utility functions to help traverse the XD scenegraph.",
+  "version": "0.0.7",
+  "description": "xd-scenegraph-helper is a set of lightweight helper functions with no external dependencies that let you easily traverse the scenegraph of a XD document. While traversing, these functions will always respect the order of XD document flow. XD's default flow is: Nodes are included in back-to-front order.",
   "main": "src/lib/index.js",
   "scripts": {
     "test": "echo \"no test found\""
