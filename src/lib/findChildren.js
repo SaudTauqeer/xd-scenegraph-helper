@@ -1,3 +1,4 @@
+const scenegraph = require("scenegraph");
 /**
  *
  * Searches the immediate children of the targetNode (i.e. not including the children's children). Returns all nodes for which callback returns true.

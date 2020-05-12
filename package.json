@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "xd-scenegraph-helper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "set of utility functions to help traverse the XD scenegraph.",
   "main": "src/lib/index.js",
   "scripts": {
@@ -18,7 +18,18 @@
     "scenenode",
     "flat-scenenode-children"
   ],
-  "author": "Saud Tauqeer <saudtauqeer381@gmail.com>",
+  "author": {
+    "name": "Saud Tauqeer",
+    "url": "https://github.com/saudtauqeer",
+    "email": "saudtauqeer381@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Saud Tauqeer",
+      "url": "https://github.com/saudtauqeer",
+      "email": "saudtauqeer381@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SaudTauqeer/xd-scenegraph-helpers/issues"

@@ -1,3 +1,4 @@
+const scenegraph = require("scenegraph");
 /**
  * Searches this entire subtree (this node's children, its children's children, etc).
  * Returns the first node for which callback returns true.

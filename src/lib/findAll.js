@@ -1,3 +1,4 @@
+const scenegraph = require("scenegraph");
 /**
  * Searches this entire subtree (this node's children, its children's children, etc). Returns all nodes for which callback returns true.
  * Nodes are included in back-to-front order. Parents always appear before their children, and children appear in same relative order before their children, and children appear in same relative order as in the children array.
