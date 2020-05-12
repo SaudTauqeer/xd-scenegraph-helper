@@ -3,9 +3,9 @@
  * Nodes are included in back-to-front order. Parents always appear before their children, and children appear in same relative order before their children, and children appear in same relative order as in the children array.
  * This traversal method is known as "pre-order traversal".
  *
- * @param {*} targetNode targetNode which is type of scenenode.isContainer. if non container node is passed it will be simply returned.
- * @param {*} callback A function that evaluates whether to return the provided node. If this argument is omitted, findAll returns all nodes in the subtree.
- * @returns {Array} this function returns an array with scenenodes or an empty array if no nodes passed the test.
+ * @param {Scenenode.isContainer} targetNode targetNode which is type of scenenode.isContainer. if non container node is passed it will be simply returned.
+ * @param {Function} callback A function that evaluates whether to return the provided node. If this argument is omitted, findAll returns all nodes in the subtree.
+ * @returns {Array} this function returns an array with scenenodes or an empty array if no scenenodes passed the test.
  */
 function findAll(targetNode, callback) {
   //wether to test nodes on all levels against the callback or not.
