@@ -1,11 +1,11 @@
 # xd-scenegraph-helper.
 
-**xd-scenegraph-helper** is a set of **lightweight** helper functions with no **external dependencies** that let you easily traverse the scenegraph of a XD document. While traversing, these functions will always respect the order of XD document flow. XD's default flow is:
+**xd-scenegraph-helper** is a set of **lightweight** helper functions with no **external dependencies** that let's you easily traverse the scenegraph of a XD document. While traversing, these functions will always respect the order of XD document flow. XD's default flow is:
 **Nodes are included in back-to-front order**
 
 # Before Installation.
 
-Make sure you have scenengraph correctly exposed to your XD plugin as a dependency. If you're using webpack you can do it by adding this:
+Make sure you have scenengraph correctly exposed to your plugin's code as a dependency. If you're using webpack you can do it by adding this to `webpack.config.js`:
 
 ```
 externals: {
@@ -26,7 +26,7 @@ yarn add xd-scenegraph-helper
 
 # Usage
 
-You can it in your plugin setup like so:
+You can use it in your plugin setup like so:
 
 ```
 const {findAll, findOne, findChildren, findChild} = require("xd-scenegraph-helper");
