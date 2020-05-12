@@ -10,13 +10,13 @@
 function findOne(targetNode, callback) {
   //handle exceptions.
   if (typeof arguments[1] !== "function") {
-    throw `argument callback' in function findOne expected 'Function' but got ${typeof callback} `;
+    throw `argument 'callback' in function findOne expected 'Function' but got ${typeof callback} `;
   }
   if (targetNode == undefined) {
-    throw `argument targetNode in function findOne expected 'Scenenode.isContainer' scenenode but got '${typeof targetNode}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
+    throw `argument 'targetNode in function findOne expected 'Scenenode.isContainer' scenenode but got '${typeof targetNode}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
   }
   if (!targetNode.isContainer) {
-    throw `argument targetNode in function findOne expected 'Scenenode.isContainer' scenenode but got '${targetNode.constructor.name}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
+    throw `argument 'targetNode' in function findOne expected 'Scenenode.isContainer' scenenode but got '${targetNode.constructor.name}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
   }
   //get all elements in the tree.
   const allNodesInTree = findAll(targetNode);

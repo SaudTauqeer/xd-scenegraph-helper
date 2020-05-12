@@ -8,14 +8,14 @@
 
 function findChild(targetNode, callback) {
   if (!arguments[1] || typeof arguments[1] !== "function") {
-    throw `argument callback' in function findChild expected 'Function' but got ${typeof callback} `;
+    throw `argument 'callback' in function findChild expected 'Function' but got ${typeof callback} `;
   }
   //handle exceptions.
   if (targetNode == undefined) {
-    throw `argument targetNode in function findChild expected 'Scenenode.isContainer' scenenode but got '${typeof targetNode}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
+    throw `argument 'targetNode' in function findChild expected 'Scenenode.isContainer' scenenode but got '${typeof targetNode}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
   }
   if (!targetNode.isContainer) {
-    throw `argument targetNode in function findChild expected 'Scenenode.isContainer' scenenode but got '${targetNode.constructor.name}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
+    throw `argument 'targetNode' in function findChild expected 'Scenenode.isContainer' scenenode but got '${targetNode.constructor.name}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
   }
 
   //filter target node based on callback boolean value.

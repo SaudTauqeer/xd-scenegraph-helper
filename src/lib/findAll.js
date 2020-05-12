@@ -15,13 +15,13 @@ function findAll(targetNode, callback) {
     typeof arguments[1] !== "function" &&
     typeof arguments[1] !== typeof undefined
   ) {
-    throw `argument callback' in function findChildren expected 'Function' but got ${typeof callback} `;
+    throw `argument 'callback' in function findAll expected 'Function' but got ${typeof callback} `;
   }
   if (targetNode == undefined) {
-    throw `argument targetNode in function findChildren expected 'Scenenode.isContainer' scenenode but got '${typeof targetNode}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
+    throw `argument 'targetNode' in function findAll expected 'Scenenode.isContainer' scenenode but got '${typeof targetNode}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
   }
   if (!targetNode.isContainer) {
-    throw `argument targetNode in function findChildren expected 'Scenenode.isContainer' scenenode but got '${targetNode.constructor.name}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
+    throw `argument 'targetNode' in function findAll expected 'Scenenode.isContainer' scenenode but got '${targetNode.constructor.name}' instead. Read more: https://adobexdplatform.com/plugin-docs/reference/scenegraph.html#scenenodeiscontainer--boolean`;
   }
 
   const result = flatContainerNode(targetNode);
