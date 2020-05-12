@@ -7,6 +7,7 @@
  * @param {Function} callback A function that evaluates whether to return the provided node. If this argument is omitted, findAll returns all nodes in the subtree.
  * @returns {Array} this function returns an array with scenenodes or an empty array if no scenenodes passed the test.
  */
+
 function findAll(targetNode, callback) {
   //wether to test nodes on all levels against the callback or not.
   const isCallbackExists = typeof arguments[1] === "function" ? true : false;
